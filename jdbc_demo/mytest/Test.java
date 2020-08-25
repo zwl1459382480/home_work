@@ -65,6 +65,10 @@ public class Test {
         String sql = "update "+TABLE+" set b_name='"+name+"',b_price="+price+",b_status="+status+" where b_no='"+no+"'";
         bookInfoDao.executeUpdate(sql);
     }
+
+    /**
+     * 删除图书
+     */
     public static void deleteBook(){
         System.out.println("请输入您要删除的图书编号:");
         int no = scanner.nextInt();
