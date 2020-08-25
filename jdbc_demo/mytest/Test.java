@@ -14,7 +14,7 @@ public class Test {
     /**
      * 添加图书
      */
-    public static void addbook(){
+    public static void addBook(){
         System.out.println("请输入您要添加的图书信息:");
         System.out.println("图书编号:");
         String no = scanner.next();
@@ -35,9 +35,41 @@ public class Test {
     /**
      *查询图书
      */
-    public static void searchbook(){
-        String sql = "select b_no '图书编号',b_name '图书名称',b_price '图书价格',b_status '图书状态' from "+TABLE;
-        System.out.println(bookInfoDao.executeQuery(sql));
+    public static void searchBook(){
+        System.out.println("1、查询所有图书\n2、按图书编号查询\n请输入您的选择：");
+        int nextInt = scanner.nextInt();
+        Object next1=null;
+        switch (nextInt){
+            case 1:
+                String sql = "select b_no '图书编号',b_name '图书名称',b_price '图书价格',b_status '图书状态' from "+TABLE;
+                System.out.println(bookInfoDao.executeQuery(sql));
+                break;
+            default:
+                System.out.println("输入有误！");confirm();
+                break;
+        }
+    }
+
+    /**
+     * 修改图书
+     */
+    public static void updateBook(){
+        System.out.println("请输入您要修改的图书编号:");
+        int no = scanner.nextInt();
+        System.out.println("请输入您要修改的图书名称:");
+        String name = scanner.next();
+        System.out.println("请输入您要修改的图书价格:");
+        int price = scanner.nextInt();
+        System.out.println("请输入您要修改的图书状态:");
+        int status = scanner.nextInt();
+        String sql = "update "+TABLE+" set b_name='"+name+"',b_price="+price+",b_status="+status+" where b_no='"+no+"'";
+        bookInfoDao.executeUpdate(sql);
+    }
+    public static void deleteBook(){
+        System.out.println("请输入您要删除的图书编号:");
+        int no = scanner.nextInt();
+        String sql = "delete from "+TABLE+" where b_no='"+no+"'";
+        bookInfoDao.executeUpdate(sql);
     }
     /**
      * 确认返回主菜单或退出
@@ -63,12 +95,19 @@ public class Test {
         System.out.println("图书管理");
         System.out.println("1、添加图书");
         System.out.println("2、查询图书");
+        System.out.println("3、修改图书");
+        System.out.println("4、删除图书");
         System.out.println("请输入您的选择:");
         int n = scanner.nextInt();
         switch (n){
-            case 1:addbook();confirm();break;
+            case 1:
+                addBook();confirm();break;
             case 2:
-                searchbook();confirm();break;
+                searchBook();confirm();break;
+            case 3:
+                updateBook();confirm();break;
+            case 4:
+                deleteBook();confirm();break;
             default:
                 System.out.println("输入有误！");confirm();break;
         }
